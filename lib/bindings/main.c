@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include "solo5.h"
+#include <ocaml-boot-riscv-freestanding-compat.h>
 
 #define CAML_NAME_SPACE
 #include <caml/mlvalues.h>
@@ -22,28 +22,30 @@
 #include <caml/callback.h>
 #include <caml/alloc.h>
 
-static char *unused_argv[] = { "mirage", NULL };
-static const char *solo5_cmdline = "";
+static const char *riscv_cmdline = "";
 
 CAMLprim value
-mirage_solo5_yield(value v_deadline)
+mirage_riscv_yield(value v_deadline)
 {
     CAMLparam1(v_deadline);
 
-    solo5_time_t deadline = (Int64_val(v_deadline));
-    bool rc = solo5_yield(deadline);
+    time_t deadline = (Int64_val(v_deadline));
+    riscv_wait(deadline);
 
-    CAMLreturn(Val_bool(rc));
+    // for now no IO is possible therefore always return false
+    CAMLreturn(Val_bool(false));
 }
 
 CAMLprim value
-mirage_solo5_get_cmdline(value unit)
+mirage_riscv_get_cmdline(value unit)
 {
     CAMLparam1(unit);
 
-    CAMLreturn(caml_copy_string(solo5_cmdline));
+    CAMLreturn(caml_copy_string(riscv_cmdline));
 }
 
+// XXX: provided by ocaml-boot-riscv
+/*
 extern void _nolibc_init(uintptr_t, size_t);
 
 int solo5_app_main(const struct solo5_start_info *si)
@@ -54,3 +56,4 @@ int solo5_app_main(const struct solo5_start_info *si)
 
     return 0;
 }
+*/

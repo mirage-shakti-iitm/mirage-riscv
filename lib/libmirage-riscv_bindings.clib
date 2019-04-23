@@ -6,6 +6,4 @@ bindings/clock_stubs.o
 bindings/cstruct_stubs.o
 bindings/main.o
 bindings/mm_stubs.o
-bindings/solo5_block_stubs.o
-bindings/solo5_console_stubs.o
-bindings/solo5_net_stubs.o
+bindings/riscv_console_stubs.o
