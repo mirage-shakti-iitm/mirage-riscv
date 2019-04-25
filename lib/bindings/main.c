@@ -44,16 +44,12 @@ mirage_riscv_get_cmdline(value unit)
     CAMLreturn(caml_copy_string(riscv_cmdline));
 }
 
-// XXX: provided by ocaml-boot-riscv
-/*
+
+// provide startup function for ocaml-boot-riscv
 extern void _nolibc_init(uintptr_t, size_t);
 
-int solo5_app_main(const struct solo5_start_info *si)
+void riscv_boot_finished(uintptr_t heap_start, uint64_t heap_size)
 {
-    solo5_cmdline = si->cmdline;
-    _nolibc_init(si->heap_start, si->heap_size);
+    _nolibc_init(heap_start, heap_size);
     caml_startup(unused_argv);
-
-    return 0;
 }
-*/
