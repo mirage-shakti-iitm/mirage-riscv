@@ -1,14 +1,11 @@
-# mirage-solo5 -- Solo5 core platform libraries for MirageOS
+# mirage-riscv -- RISC-V/SHAKTI core platform libraries for MirageOS
 
 This package provides the MirageOS `OS` library for
-[Solo5][1] targets, which handles the main loop and timers. It also provides
+RISC-V/SHAKTI targets, which handles the main loop and timers. It also provides
 the low level C startup code and C stubs required by the OCaml code.
 
-Currently this package also includes the C stubs used by the Solo5 `console`,
-`block` and `net` implementations.
-
+Currently this package also includes the C stubs used by the RISC-V `console` (XXX: not existing yet)
 The OCaml runtime and C runtime required to support it are provided separately
-by the [ocaml-freestanding][2] package.
+by the [ocaml-freestanding-riscv][1] package.
 
-[1]: https://github.com/Solo5/solo5
-[2]: https://github.com/mirage/ocaml-freestanding
+[1]: https://gitlab.com/shaktiproject/tools/shakti-tee/ocaml-freestanding-riscv#mirage
