@@ -1,0 +1,10 @@
+prefix=${pcfiledir}/../..
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+
+Name: mirage-riscv
+Version: 0.0.1
+URL: n/a 
+Description: Core platform libraries for Mirage on RISC-V
+Libs: ${libdir}/mirage-riscv/libmirage-riscv_bindings.a
+Requires: ocaml-freestanding
