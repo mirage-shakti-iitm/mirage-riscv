@@ -1,4 +1,4 @@
-description = "MirageOS platform support for Solo5"
+description = "MirageOS platform support for RiscV"
 version = "%%VERSION_NUM%%"
 requires = "lwt-dllist bheap lwt cstruct logs"
 archive(byte) = "oS.cma"

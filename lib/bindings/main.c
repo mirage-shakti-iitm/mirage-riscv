@@ -23,13 +23,15 @@
 #include <caml/alloc.h>
 
 static const char *riscv_cmdline = "";
+static char *unused_argv[] = { "mirage", NULL };
 
 CAMLprim value
 mirage_riscv_yield(value v_deadline)
 {
     CAMLparam1(v_deadline);
 
-    time_t deadline = (Int64_val(v_deadline));
+    //time_t is defined elsewhere, using time__t instead
+    time__t deadline = (Int64_val(v_deadline));
     riscv_wait(deadline);
 
     // for now no IO is possible therefore always return false

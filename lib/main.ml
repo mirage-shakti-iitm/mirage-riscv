@@ -43,7 +43,7 @@ let rec call_hooks hooks  =
             return ()) in
         call_hooks hooks
 
-(* Solo5 currently has an all-or-nothing interface to block and wait for I/O
+(* riscv currently has an all-or-nothing interface to block and wait for I/O
  * events, so we use a single condition variable to block threads which are
  * waiting for work and wake them all up if I/O is possible.  This will need to
  * be extended once riscv_yield() gains support for selecting events of

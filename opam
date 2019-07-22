@@ -1,40 +1,40 @@
 opam-version: "2.0"
-maintainer:   "martin@lucina.net"
+maintainer: [
+  "Sai Venkata Krishnan <saiganesha5.svkv@gmail.com>"
+   "Malte Bargholz <malte@screenri.de>"
+]
 homepage:     "https://github.com/mirage/mirage-solo5"
 bug-reports:  "https://github.com/mirage/mirage-solo5/issues/"
 dev-repo:     "git+https://github.com/mirage/mirage-solo5.git"
 license:      "ISC"
 authors: [
-  "Anil Madhavapeddy <anil@recoil.org>"
-  "Dan Williams <djwillia@us.ibm.com>"
-  "Martin Lucina <martin@lucina.net>"
+  "Malte Bargholz <malte@screenri.de>"
 ]
 tags: [
   "org:mirage"
 ]
 build: [
-  [ "ocaml" "pkg/pkg.ml" "build" "--pinned" "%{pinned}%" ] { os != "openbsd" }
-  [ "ocaml" "pkg/pkg.ml" "build" "--pinned" "false" ] { os = "openbsd" }
+     [ "ocaml" "pkg/pkg.ml" "build" "--pinned" "%{pinned}%" "--toolchain" "riscv"]
 ]
+install: [["opam-installer" "--prefix=%{prefix}%/riscv-sysroot" "mirage-riscv.install"]]
+
 depends: [
+  "ocaml" {= "4.07.0"}
   "ocamlfind" {build}
   "ocamlbuild" {build}
   "topkg" {build & >= "0.9.0"}
-  "bheap"
+  "ocaml-riscv"
+  "bheap-riscv"
   "ocb-stubblr" {build}
-  "ocaml" {>= "4.04.2"}
-  "cstruct" {>= "1.0.1"}
-  "lwt" {>= "2.4.3"}
-  "lwt-dllist"
-  "ocaml-freestanding"
-  "logs"
+  "cstruct-riscv"
+  "lwt-riscv" 
+  "lwt-dllist-riscv"
+  "ocaml-freestanding-riscv"
+  "logs-riscv"
   "ocaml-boot-riscv-freestanding-compat"
 ]
 conflicts: [
-  "io-page" {< "2.0.0"}
-]
-post-messages: [
-  "As of MirageOS 3.2.0 / Solo5 0.4.0, the 'ukvm' target has been renamed to 'hvt'. Please refer to https://github.com/mirage/mirage/blob/master/CHANGES.md for further details on this change."
+  "io-page-riscv" {< "2.0.0"}
 ]
 synopsis: "RISC-V core platform libraries for MirageOS"
 description: """
