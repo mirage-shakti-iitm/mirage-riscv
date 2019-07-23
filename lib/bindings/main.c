@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include <ocaml-boot-riscv-freestanding-compat.h>
+#include <ocaml-boot-riscv.h>
 
 #define CAML_NAME_SPACE
 #include <caml/mlvalues.h>

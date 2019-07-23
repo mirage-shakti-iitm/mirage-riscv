@@ -17,7 +17,7 @@
  */
 
 
-#include <ocaml-boot-riscv-freestanding-compat.h>
+#include <ocaml-boot-riscv.h>
 
 #define CAML_NAME_SPACE
 #include <caml/alloc.h>

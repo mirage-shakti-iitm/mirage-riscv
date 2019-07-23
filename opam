@@ -31,7 +31,7 @@ depends: [
   "lwt-dllist-riscv"
   "ocaml-freestanding-riscv"
   "logs-riscv"
-  "ocaml-boot-riscv-freestanding-compat"
+  "ocaml-boot-riscv"
 ]
 conflicts: [
   "io-page-riscv" {< "2.0.0"}
