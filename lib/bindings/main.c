@@ -35,7 +35,7 @@ mirage_riscv_yield(value v_deadline)
     riscv_wait(deadline);
 
     // for now no IO is possible therefore always return false
-    CAMLreturn(Val_bool(false));
+    CAMLreturn(Val_bool(0));
 }
 
 CAMLprim value
