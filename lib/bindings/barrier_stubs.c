@@ -25,7 +25,7 @@
 #define rmb()    __asm__ __volatile__("fence" ::: "memory")
 #define wmb()    __asm__ __volatile__("fence" ::: "memory")
 #else
-#error Unsupported architecture
+#warning Unsupported architecture
 #endif
 
 CAMLprim value
