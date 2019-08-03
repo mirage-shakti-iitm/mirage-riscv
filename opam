@@ -4,9 +4,9 @@ maintainer: [
   "Sai Venkata Krishnan <saiganesha5.svkv@gmail.com>"
    "Malte Bargholz <malte@screenri.de>"
 ]
-homepage:     "https://github.com/mirage/mirage-solo5"
-bug-reports:  "https://github.com/mirage/mirage-solo5/issues/"
-dev-repo:     "git+https://github.com/mirage/mirage-solo5.git"
+homepage:     "https://github.com/mirage-shakti-iitm/mirage-riscv"
+bug-reports:  "https://github.com/mirage-shakti-iitm/mirage-riscv/issues/"
+dev-repo:     "git+https://github.com/mirage-shakti-iitm/mirage-riscv.git"
 license:      "ISC"
 authors: [
   "Malte Bargholz <malte@screenri.de>"
