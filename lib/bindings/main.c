@@ -32,6 +32,7 @@ mirage_riscv_yield(value v_deadline)
 
     //time_t is defined elsewhere, using time__t instead
     time__t deadline = (Int64_val(v_deadline));
+    riscv_write("ocaml-freestanding aborted!\n", 28);
     riscv_wait(deadline);
 
     // for now no IO is possible therefore always return false
