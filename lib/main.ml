@@ -67,7 +67,7 @@ let run t =
     | None ->
         let timeout =
           match Time.select_next () with
-          |None -> Time.Monotonic.(time () + of_nanoseconds 86_400_000_000_000L) (* one day = 24 * 60 * 60 s *)
+          |None -> Time.Monotonic.(time () + of_nanoseconds 1L) (* one day = 24 * 60 * 60 s *)
           |Some tm -> tm
         in
         if riscv_yield timeout then begin
