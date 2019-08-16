@@ -111,11 +111,11 @@ let min_timeout a b = match a, b with
 
 let rec print_list = function 
 [] -> ()
-| e::l -> print_int e ; print_string " " ; print_list l
+| e::l -> Logs.info (fun f -> f "Element: %s\t" (Int64.to_string e)) ; print_list l
 
 let rec get_next_timeout () =
-(*   let ll = String.concat "," (sleep_queue); *)
-   
+  
+  print_list sleep_queue; 
   match SleepQueue.maximum sleep_queue with
   | exception Binary_heap.Empty -> None
   | { canceled = true; _ } ->
