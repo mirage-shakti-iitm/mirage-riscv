@@ -115,7 +115,7 @@ let rec print_list = function
 
 let rec get_next_timeout () =
   let ll = String.concat "," (sleep_queue);
-  print_list ll; 
+   
   match SleepQueue.maximum sleep_queue with
   | exception Binary_heap.Empty -> None
   | { canceled = true; _ } ->
