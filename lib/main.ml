@@ -67,7 +67,7 @@ let run t =
     | None ->
         let timeout =
           match Time.select_next () with
-          |None -> Time.Monotonic.(time () + of_nanoseconds 0L) (* one day = 24 * 60 * 60 s *)
+          |None -> Time.Monotonic.(time () + of_nanoseconds 86400_000_000_000L) (* one day = 24 * 60 * 60 s *)
           |Some tm -> tm
         in
         Logs.info (fun f -> f "Deadline: %s\n" (Int64.to_string timeout)) ;
