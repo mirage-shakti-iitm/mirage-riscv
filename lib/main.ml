@@ -70,7 +70,7 @@ let run t =
           |None -> Time.Monotonic.(time () + of_nanoseconds 0L) (* one day = 24 * 60 * 60 s *)
           |Some tm -> tm
         in
-        Printf.printf "Deadline: %s\n" (Int64.to_string timeout);
+        Logs.info (fun f -> f "Deadline: %s\n" (Int64.to_string timeout)) ;
         if riscv_yield timeout then begin
           (* Call enter hooks. *)
           Lwt_dllist.iter_l (fun f -> f ()) enter_iter_hooks;
