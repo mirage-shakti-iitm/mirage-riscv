@@ -72,7 +72,7 @@ let sleep_queue = SleepQueue.create 1
 let new_sleeps = ref []
 
 let sleep_ns d =
-  Logs.info (fun m -> m " %s::\n" (Int64.to_string d));
+  Logs.info (fun m -> m " %s::\n" (Int64.to_string (of_nanoseconds d)));
   let (res, w) = Lwt.task () in
   let t = Monotonic.(time () + of_nanoseconds d) in
   let sleeper = { time = t; canceled = false; thread = w } in
