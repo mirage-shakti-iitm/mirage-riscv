@@ -72,6 +72,7 @@ let sleep_queue = SleepQueue.create 1
 let new_sleeps = ref []
 
 let sleep_ns d =
+  Logs.info (fun f -> f "Deadline: %s\n" (Int64.to_string d.t)) ;
   let (res, w) = Lwt.task () in
   let t = Monotonic.(time () + of_nanoseconds d) in
   let sleeper = { time = t; canceled = false; thread = w } in
@@ -81,7 +82,7 @@ let sleep_ns d =
 
 exception Timeout
 
-let timeout d = Logs.info (fun m -> m " %s::\n" (Int64.to_string d)); sleep_ns d >>= fun () -> Lwt.fail Timeout
+let timeout d = sleep_ns d >>= fun () -> Lwt.fail Timeout
 
 let with_timeout d f = Lwt.pick [timeout d; Lwt.apply f ()]
 
@@ -108,10 +109,6 @@ let min_timeout a b = match a, b with
   | None, b -> b
   | a, None -> a
   | Some a, Some b -> Some(min a b)
-
-let rec print_list = function 
-[] -> ()
-| e::l -> Logs.info (fun f -> f "Element: %s\t" (Int64.to_string e)) ; print_list l
 
 let rec get_next_timeout () =
   
