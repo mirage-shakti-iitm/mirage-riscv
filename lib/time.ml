@@ -112,7 +112,6 @@ let min_timeout a b = match a, b with
 
 let rec get_next_timeout () =
   
-  print_list sleep_queue; 
   match SleepQueue.maximum sleep_queue with
   | exception Binary_heap.Empty -> None
   | { canceled = true; _ } ->
