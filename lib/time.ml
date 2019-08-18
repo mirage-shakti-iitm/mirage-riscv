@@ -85,7 +85,7 @@ let sleep_ns d =
 
 exception Timeout
 
-let timeout d = sleep_ns d >>= fun () -> Lwt.fail Timeout
+let timeout d = Logs.info (fun f -> f "sleep_ns : d: %s" (Int64.to_string d)); sleep_ns d >>= fun () -> Lwt.fail Timeout
 
 let with_timeout d f = Lwt.pick [timeout d; Lwt.apply f ()]
 
