@@ -126,6 +126,8 @@ let rec get_next_timeout () =
 let select_next () =
   (* Transfer all sleepers added since the last iteration to the main
      sleep queue: *)
+  let t = Monotonic.(time () + of_nanoseconds 0L) in
+  Logs.info (fun f -> f "sleep_ns : t: %s" (Int64.to_string t));   
   List.iter
       (fun e -> SleepQueue.add sleep_queue e) !new_sleeps;
   new_sleeps := [];
