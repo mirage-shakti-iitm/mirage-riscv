@@ -77,8 +77,8 @@ let sleep_ns d =
   let (res, w) = Lwt.task () in
   Logs.info (fun f -> f "sleep_ns : converted_d: %s" (Int64.to_string converted_d)) ;
   Logs.info (fun f -> f "sleep_ns : org_time: %s" (Int64.to_string Monotonic.(time() + of_nanoseconds 0L)));
-  (* let t = Monotonic.(time () + of_nanoseconds d) in *)
-  let t = Monotonic.(time () + of_nanoseconds 0L) in
+  let t = Monotonic.(time () + of_nanoseconds converted_d) in
+  (* let t = Monotonic.(time () + of_nanoseconds 0L) in *)
   Logs.info (fun f -> f "sleep_ns : t: %s" (Int64.to_string t));
   let sleeper = { time = converted_d; canceled = false; thread = w } in
   new_sleeps := sleeper :: !new_sleeps;
