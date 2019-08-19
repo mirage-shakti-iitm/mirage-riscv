@@ -95,7 +95,6 @@ let in_the_past now t =
   t = 0L || t <= now ()
 
 let rec restart_threads now =
-  Logs.info (fun f -> f "restart_threads : now: %s" (Int64.to_string now));
   match SleepQueue.maximum sleep_queue with
   | exception Binary_heap.Empty -> ()
   | { canceled = true; _ } ->

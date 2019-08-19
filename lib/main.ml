@@ -60,6 +60,7 @@ let run t =
   let t = call_hooks enter_hooks <&> t in
   let rec aux () =
     Lwt.wakeup_paused ();
+    Logs.info (fun f -> f "restart_threads : now: %s" (Int64.to_string Time.Monotonic.time));
     Time.restart_threads Time.Monotonic.time;
     match (try Lwt.poll t with exn -> err exn) with
     | Some () ->
