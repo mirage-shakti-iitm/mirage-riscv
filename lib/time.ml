@@ -80,7 +80,7 @@ let sleep_ns d =
   let t = Monotonic.(time () + of_nanoseconds d) in
   (* let t = Monotonic.(time () + of_nanoseconds 0L) in *)
   Logs.info (fun f -> f "sleep_ns : t: %s" (Int64.to_string t));
-  let sleeper = { time = converted_d; canceled = false; thread = w } in
+  let sleeper = { time = t; canceled = false; thread = w } in
   new_sleeps := sleeper :: !new_sleeps;
   Lwt.on_cancel res (fun _ -> sleeper.canceled <- true);
   res
