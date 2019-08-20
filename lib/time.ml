@@ -72,14 +72,14 @@ let sleep_queue = SleepQueue.create 1
 let new_sleeps = ref []
 
 let sleep_ns d =
-  Logs.info (fun f -> f "sleep_ns : d: %s" (Int64.to_string d)) ;
-  let converted_d = Int64.of_int (Int64.to_int (d) / 2000) in
+  (* Logs.info (fun f -> f "sleep_ns : d: %s" (Int64.to_string d)) ; *)
+  let converted_d = Int64.of_int (Int64.to_int (d) / 90) in
   let (res, w) = Lwt.task () in
-  Logs.info (fun f -> f "sleep_ns : converted_d: %s" (Int64.to_string converted_d)) ;
-  Logs.info (fun f -> f "sleep_ns : mtime: %s" (Int64.to_string Monotonic.(time() + of_nanoseconds 0L)));
+  (* Logs.info (fun f -> f "sleep_ns : converted_d: %s" (Int64.to_string converted_d)) ; *)
+  (* Logs.info (fun f -> f "sleep_ns : mtime: %s" (Int64.to_string Monotonic.(time() + of_nanoseconds 0L))); *)
   let t = Monotonic.(time () + of_nanoseconds converted_d) in
   (* let t = Monotonic.(time () + of_nanoseconds 0L) in *)
-  Logs.info (fun f -> f "sleep_ns : t: %s" (Int64.to_string t));
+  (* Logs.info (fun f -> f "sleep_ns : t: %s" (Int64.to_string t)); *)
   let sleeper = { time = t; canceled = false; thread = w } in
   new_sleeps := sleeper :: !new_sleeps;
   Lwt.on_cancel res (fun _ -> sleeper.canceled <- true);
@@ -129,7 +129,7 @@ let select_next () =
   (* Transfer all sleepers added since the last iteration to the main
      sleep queue: *)
   let t = Monotonic.(time () + of_nanoseconds 0L) in
-  Logs.info (fun f -> f "select_next : mtime: %s" (Int64.to_string t));   
+  (* Logs.info (fun f -> f "select_next : mtime: %s" (Int64.to_string t));    *)
   List.iter
       (fun e -> SleepQueue.add sleep_queue e) !new_sleeps;
   new_sleeps := [];
