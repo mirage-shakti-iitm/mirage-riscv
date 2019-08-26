@@ -15,7 +15,7 @@
  */
 
 #include <ocaml-boot-riscv.h>
-
+#include<stdint.h>
 #define CAML_NAME_SPACE
 #include <caml/mlvalues.h>
 #include <caml/memory.h>
