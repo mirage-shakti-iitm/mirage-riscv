@@ -72,8 +72,9 @@ let sleep_queue = SleepQueue.create 1
 let new_sleeps = ref []
 
 let sleep_ns d =
+  let converted_d = Int64.of_int (Int64.to_int (d) / 90) in
   let (res, w) = Lwt.task () in
-  let t = Monotonic.(time () + of_nanoseconds d) in
+  let t = Monotonic.(time () + of_nanoseconds converted_d) in
   let sleeper = { time = t; canceled = false; thread = w } in
   new_sleeps := sleeper :: !new_sleeps;
   Lwt.on_cancel res (fun _ -> sleeper.canceled <- true);
