@@ -50,7 +50,7 @@ mirage_riscv_get_cmdline(value unit)
 // provide startup function for ocaml-boot-riscv
 extern void _nolibc_init(uintptr_t, size_t);
 
-void riscv_boot_finished(uintptr_t heap_start, uint64_t heap_size)
+void riscv_boot_finished(uint64_t heap_start, uint64_t heap_size)
 {
     _nolibc_init(heap_start, heap_size);
     caml_startup(unused_argv);
