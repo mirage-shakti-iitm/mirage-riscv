@@ -22,6 +22,8 @@
 #include <caml/callback.h>
 #include <caml/alloc.h>
 
+typedef unsigned long uintptr_t;
+
 static const char *riscv_cmdline = "";
 static char *unused_argv[] = { "mirage", NULL };
 
