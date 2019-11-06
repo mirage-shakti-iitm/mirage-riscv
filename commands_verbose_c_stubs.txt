@@ -1,0 +1,19 @@
+riscv64-unknown-linux-gnu-gcc -Os -fno-strict-aliasing -fwrapv -fPIC -D_FILE_OFFSET_BITS=64 -D_REENTRANT   -c -g -O2 -std=c99 -Wall -Werror -I/home/sai/.opam/4.07.0/lib/pkgconfig/../../include/ocaml-freestanding -I/home/sai/.opam/4.07.0/include  -I'/home/sai/.opam/4.07.0/riscv-sysroot/lib/ocaml' 'lib/bindings/alloc_pages_stubs.c'
+
+riscv64-unknown-linux-gnu-gcc -Os -fno-strict-aliasing -fwrapv -fPIC -D_FILE_OFFSET_BITS=64 -D_REENTRANT   -c -g -O2 -std=c99 -Wall -Werror -I/home/sai/.opam/4.07.0/lib/pkgconfig/../../include/ocaml-freestanding -I/home/sai/.opam/4.07.0/include  -I'/home/sai/.opam/4.07.0/riscv-sysroot/lib/ocaml' 'lib/bindings/atomic_stubs.c'
+
+riscv64-unknown-linux-gnu-gcc -Os -fno-strict-aliasing -fwrapv -fPIC -D_FILE_OFFSET_BITS=64 -D_REENTRANT   -c -g -O2 -std=c99 -Wall -Werror -I/home/sai/.opam/4.07.0/lib/pkgconfig/../../include/ocaml-freestanding -I/home/sai/.opam/4.07.0/include  -I'/home/sai/.opam/4.07.0/riscv-sysroot/lib/ocaml' 'lib/bindings/barrier_stubs.c'
+
+riscv64-unknown-linux-gnu-gcc -Os -fno-strict-aliasing -fwrapv -fPIC -D_FILE_OFFSET_BITS=64 -D_REENTRANT   -c -g -O2 -std=c99 -Wall -Werror -I/home/sai/.opam/4.07.0/lib/pkgconfig/../../include/ocaml-freestanding -I/home/sai/.opam/4.07.0/include  -I'/home/sai/.opam/4.07.0/riscv-sysroot/lib/ocaml' 'lib/bindings/checksum_stubs.c'
+
+riscv64-unknown-linux-gnu-gcc -Os -fno-strict-aliasing -fwrapv -fPIC -D_FILE_OFFSET_BITS=64 -D_REENTRANT   -c -g -O2 -std=c99 -Wall -Werror -I/home/sai/.opam/4.07.0/lib/pkgconfig/../../include/ocaml-freestanding -I/home/sai/.opam/4.07.0/include  -I'/home/sai/.opam/4.07.0/riscv-sysroot/lib/ocaml' 'lib/bindings/clock_stubs.c'
+
+riscv64-unknown-linux-gnu-gcc -Os -fno-strict-aliasing -fwrapv -fPIC -D_FILE_OFFSET_BITS=64 -D_REENTRANT   -c -g -O2 -std=c99 -Wall -Werror -I/home/sai/.opam/4.07.0/lib/pkgconfig/../../include/ocaml-freestanding -I/home/sai/.opam/4.07.0/include  -I'/home/sai/.opam/4.07.0/riscv-sysroot/lib/ocaml' 'lib/bindings/cstruct_stubs.c'
+
+riscv64-unknown-linux-gnu-gcc -Os -fno-strict-aliasing -fwrapv -fPIC -D_FILE_OFFSET_BITS=64 -D_REENTRANT   -c -g -O2 -std=c99 -Wall -Werror -I/home/sai/.opam/4.07.0/lib/pkgconfig/../../include/ocaml-freestanding -I/home/sai/.opam/4.07.0/include  -I'/home/sai/.opam/4.07.0/riscv-sysroot/lib/ocaml' 'lib/bindings/main.c'
+
+riscv64-unknown-linux-gnu-gcc -Os -fno-strict-aliasing -fwrapv -fPIC -D_FILE_OFFSET_BITS=64 -D_REENTRANT   -c -g -O2 -std=c99 -Wall -Werror -I/home/sai/.opam/4.07.0/lib/pkgconfig/../../include/ocaml-freestanding -I/home/sai/.opam/4.07.0/include  -I'/home/sai/.opam/4.07.0/riscv-sysroot/lib/ocaml' 'lib/bindings/mm_stubs.c'
+
+riscv64-unknown-linux-gnu-gcc -Os -fno-strict-aliasing -fwrapv -fPIC -D_FILE_OFFSET_BITS=64 -D_REENTRANT   -c -g -O2 -std=c99 -Wall -Werror -I/home/sai/.opam/4.07.0/lib/pkgconfig/../../include/ocaml-freestanding -I/home/sai/.opam/4.07.0/include  -I'/home/sai/.opam/4.07.0/riscv-sysroot/lib/ocaml' 'lib/bindings/riscv_console_stubs.c'
+
+riscv64-unknown-linux-gnu-ar rc lib/libmirage-riscv_bindings.a  lib/bindings/alloc_pages_stubs.o lib/bindings/atomic_stubs.o lib/bindings/barrier_stubs.o lib/bindings/checksum_stubs.o lib/bindings/clock_stubs.o lib/bindings/cstruct_stubs.o lib/bindings/main.o lib/bindings/mm_stubs.o lib/bindings/riscv_console_stubs.o && riscv64-unknown-linux-gnu-ranlib lib/libmirage-riscv_bindings.a
