@@ -1,0 +1,2 @@
+unix_gettimeofday:254
+caml_get_monotonic_time:254
