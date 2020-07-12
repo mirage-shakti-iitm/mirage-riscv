@@ -15,6 +15,6 @@ let () =
   Pkg.describe ~build:(Pkg.build ~cmd()) ~opams "mirage-riscv" @@ fun c ->
   Ok [
     Pkg.mllib "lib/oS.mllib" ;
-    Pkg.clib ~dllfield:nowhere "lib/libmirage-riscv_bindings.clib";
-    Pkg.lib_root ~dst:"pkgconfig/" "lib/bindings/mirage-riscv.pc"
+    (* Pkg.clib ~dllfield:nowhere "lib/libmirage-riscv_bindings.clib"; *)
+    (* Pkg.lib_root ~dst:"pkgconfig/" "lib/bindings/mirage-riscv.pc" *)
   ]
