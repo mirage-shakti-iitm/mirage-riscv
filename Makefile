@@ -1,9 +1,7 @@
 .PHONY: all clean install add-cap-files
 
 BUILD_MIRAGE_RISCV_LIB=$(shell pwd)/build_c_stubs
-MIRAGE_RISCV_BINDINGS_PATH=$(shell opam config exec -- ocamlfind -toolchain riscv query mirage-riscv)
-
-# MIRAGE_RISCV_BINDINGS_PATH=$(shell opam config var prefix)/riscv-sysroot/lib/mirage-riscv
+MIRAGE_RISCV_BINDINGS_PATH=$(shell opam config var prefix)/riscv-sysroot/lib/mirage-riscv
 
 $(BUILD_MIRAGE_RISCV_LIB)/Makefile:
 	mkdir -p $(BUILD_MIRAGE_RISCV_LIB)
