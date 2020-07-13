@@ -1,3 +1,3 @@
 mirage_riscv_yield:16
-mirage_riscv_get_cmdline:231
+mirage_riscv_get_cmdline:25
 riscv_boot_finished:0
