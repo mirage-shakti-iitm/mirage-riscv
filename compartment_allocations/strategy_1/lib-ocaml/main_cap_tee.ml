@@ -8,6 +8,6 @@ camlOS__Main__at_exit:18
 camlOS__Main__at_enter:18
 camlOS__Main__at_exit_iter:18
 camlOS__Main__at_enter_iter:18
-camlOS__Main_:255
+camlOS__Main_:118
 camlOS__Main__fun:18
 *)
