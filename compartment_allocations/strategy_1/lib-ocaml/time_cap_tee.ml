@@ -12,7 +12,7 @@ camlOS__Time__restart_threads:18
 camlOS__Time__min_timeout:18
 camlOS__Time__get_next_timeout:18
 camlOS__Time__select_next:18
-camlOS__Time_:255
+camlOS__Time_:118
 camlOS__Time__fun:18
 camlOS__Time__sleep_ns:21
 *)
