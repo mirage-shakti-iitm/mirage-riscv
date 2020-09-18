@@ -1,6 +1,6 @@
 CC=riscv64-unknown-elf-gcc
 
-C_FLAGS=-mcmodel=medany -O2 -std=c99 -Wall -Werror
+C_FLAGS=-mcmodel=medany -O2 -std=c99 -Wall -Werror -ffunction-sections
 
 C_INCLUDES=-I${OPAM_SWITCH_PREFIX}/include/ocaml-freestanding -I${OPAM_SWITCH_PREFIX}/include -I${OPAM_SWITCH_PREFIX}/riscv-sysroot/lib/ocaml
 

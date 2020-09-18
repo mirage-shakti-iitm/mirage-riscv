@@ -1,4 +1,4 @@
-true: asm, bin_annot, safe_string, principal, custom
+true: asm, bin_annot, safe_string, principal, custom, function-sections
 true: warn(A-44)
 
 <myocamlbuild.ml>: package(ocb-stubblr)
