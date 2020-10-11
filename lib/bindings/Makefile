@@ -20,7 +20,7 @@ $(OBJS):%.o: %.s
 add-checkcap: $(ASMS)
 	for f in $^; do postProcessing.py ./$$f; done
 
-libmirage-riscv_bindings.a: generate-asm add-checkcap $(OBJS)
+libmirage-riscv_bindings.a: generate-asm $(OBJS)
 	riscv64-unknown-elf-ar rcs $@ $(OBJS)
 
 generate-asm: $(SRCS)

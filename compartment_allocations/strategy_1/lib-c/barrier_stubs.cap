@@ -1,4 +1,0 @@
-caml_memory_barrier:231
-caml_write_memory_barrier:231
-caml_cstruct_unsafe_load_uint32:231
-caml_cstruct_unsafe_save_uint32:231

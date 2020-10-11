@@ -15,7 +15,6 @@ tags: [
   "org:mirage"
 ]
 build: [
-  [ make "add-cap-files" ]
   [ "ocaml" "pkg/pkg.ml" "build" "--pinned" "%{pinned}%" "--toolchain" "riscv" ]
   [ make "all" ]
 ]
