@@ -2,7 +2,7 @@ CC=riscv64-unknown-elf-gcc
 
 C_FLAGS=-mcmodel=medany -O2 -std=c99 -Wall -Werror
 
-C_INCLUDES=-I${OPAM_SWITCH_PREFIX}/riscv-sysroot/include/ocaml-freestanding -I${OPAM_SWITCH_PREFIX}/riscv-sysroot/include/ocaml-boot-riscv -I${OPAM_SWITCH_PREFIX}/riscv-sysroot/lib/ocaml
+C_INCLUDES=-I${OPAM_SWITCH_PREFIX}/riscv-sysroot/include/ocaml-boot-riscv -I${OPAM_SWITCH_PREFIX}/riscv-sysroot/lib/ocaml
 
 OBJS=alloc_pages_stubs.o atomic_stubs.o barrier_stubs.o checksum_stubs.o clock_stubs.o cstruct_stubs.o main.o mm_stubs.o riscv_console_stubs.o
 
