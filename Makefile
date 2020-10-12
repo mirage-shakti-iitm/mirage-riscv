@@ -27,5 +27,5 @@ install: all
 uninstall:   
 	rm -rf $(BUILD_MIRAGE_RISCV_LIB)
 
-clean: 
+clean:
 	rm -rf $(BUILD_MIRAGE_RISCV_LIB)
