@@ -73,7 +73,7 @@ let sleep_queue = SleepQueue.create 1
 let new_sleeps = ref []
 
 let sleep_ns d =
-  let converted_d = Int64.of_int (Int64.to_int (d) / 90) in
+  let converted_d = Int64.of_int (Int64.to_int (d) / 1000) in
   let (res, w) = Lwt.task () in
   let t = Monotonic.(time () + of_nanoseconds converted_d) in
   let sleeper = { time = t; canceled = false; thread = w } in
