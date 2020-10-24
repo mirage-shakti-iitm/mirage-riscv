@@ -1,6 +1,6 @@
 camlOS__Time__of_nanoseconds:254
-camlOS__Time__.2b:254
-camlOS__Time__.2d:254
+camlOS__Time__-:254
+camlOS__Time__+:254
 camlOS__Time__interval:254
 camlOS__Time__compare:254
 camlOS__Time__invert_comparison:254

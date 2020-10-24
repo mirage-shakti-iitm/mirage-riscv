@@ -1,7 +1,7 @@
 (*
 camlOS__Time__of_nanoseconds:18
-camlOS__Time__.2b:18
-camlOS__Time__.2d:18
+camlOS__Time__-:18
+camlOS__Time__+:18
 camlOS__Time__interval:18
 camlOS__Time__compare:18
 camlOS__Time__invert_comparison:18
