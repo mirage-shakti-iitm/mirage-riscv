@@ -16,8 +16,7 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-
-#include <ocaml-boot-riscv.h>
+#include "solo5.h"
 
 #define CAML_NAME_SPACE
 #include <caml/alloc.h>
@@ -28,12 +27,12 @@
 #include <caml/bigarray.h>
 
 CAMLprim value
-mirage_riscv_console_write(value v_buf, value v_size)
+mirage_solo5_console_write(value v_buf, value v_size)
 {
     CAMLparam2(v_buf, v_size);
     const char *buf = Caml_ba_data_val(v_buf);
     size_t size = Long_val(v_size);
 
-    riscv_write(buf, size);
+    solo5_console_write(buf, size);
     CAMLreturn(Val_unit);
 }

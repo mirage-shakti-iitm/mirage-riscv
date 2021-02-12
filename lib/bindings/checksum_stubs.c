@@ -21,9 +21,9 @@
 #include <caml/fail.h>
 #include <caml/bigarray.h>
 
-#if defined(__riscv)
+#ifdef __x86_64__
 
-/* WARNING: This code assumes that it is running on a little endian machine (such RISC-V/x86/..) */
+/* WARNING: This code assumes that it is running on a little endian machine (x86) */
 static inline uint16_t
 local_htons(uint16_t v)
 {

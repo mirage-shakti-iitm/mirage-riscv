@@ -1,6 +1,0 @@
-true: asm, bin_annot, safe_string, principal, custom
-true: warn(A-44)
-
-<myocamlbuild.ml>: package(ocb-stubblr)
-<lib/*>: package(bheap lwt-dllist lwt cstruct logs)
-<lib/*.cm{x,o}> and not <lib/oS.cmx>: for-pack(OS)

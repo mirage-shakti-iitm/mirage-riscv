@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2010 Anil Madhavapeddy <anil@recoil.org>
+(**
+ * Copyright (c) 2020 Martin Lucina <martin@lucina.net>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -12,30 +12,26 @@
  * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
- */
+ *)
 
-#include "solo5.h"
+external get_heap_words: unit -> int =
+    "mirage_memory_get_heap_words" [@@noalloc]
 
-#include <sys/time.h>
+external get_live_words: unit -> int =
+    "mirage_memory_get_live_words" [@@noalloc]
 
-#include <caml/mlvalues.h>
-#include <caml/alloc.h>
-#include <caml/memory.h>
-#include <caml/fail.h>
+external get_stack_words: unit -> int =
+    "mirage_memory_get_stack_words" [@@noalloc]
 
-CAMLprim value
-unix_gettimeofday(value v_unit)
-{
-  CAMLparam1(v_unit);
-  struct timeval tp;
-  if (gettimeofday(&tp, NULL) == -1)
-    caml_failwith("gettimeofday");
-  CAMLreturn(caml_copy_double((double) tp.tv_sec + (double) tp.tv_usec / 1e6));
+type stat = {
+  heap_words: int;
+  live_words: int;
+  stack_words: int;
+  free_words: int;
 }
 
-CAMLprim value
-caml_get_monotonic_time(value v_unit)
-{
-  CAMLparam1(v_unit);
-  CAMLreturn(caml_copy_int64(solo5_clock_monotonic()));
-}
+let quick_stat () =
+  let h = get_heap_words () in
+  let l = get_live_words () in
+  let s = get_stack_words () in
+  { heap_words = h; live_words = l; stack_words = s; free_words = h - l - s; }

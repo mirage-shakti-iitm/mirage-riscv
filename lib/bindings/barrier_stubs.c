@@ -14,18 +14,24 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#include "solo5.h"
 
 #include <caml/mlvalues.h>
 #include <caml/alloc.h>
 #include <caml/memory.h>
 #include <caml/bigarray.h>
 
-#if defined(__riscv)
-#define mb()     __asm__ __volatile__("fence" ::: "memory")
-#define rmb()    __asm__ __volatile__("fence" ::: "memory")
-#define wmb()    __asm__ __volatile__("fence" ::: "memory")
+#if defined(__x86_64__)
+#define mb()     __asm__ __volatile__("mfence" ::: "memory")
+#define rmb()    __asm__ __volatile__("lfence" ::: "memory")
+#define wmb()    __asm__ __volatile__("sfence" ::: "memory")
+#elif defined(__aarch64__)
+#define dsb(opt) __asm__ __volatile__("dsb " #opt ::: "memory")
+#define mb()     dsb(sy)
+#define rmb()    dsb(ld)
+#define wmb()    dsb(st)
 #else
-#warning Unsupported architecture
+#error Unsupported architecture
 #endif
 
 CAMLprim value

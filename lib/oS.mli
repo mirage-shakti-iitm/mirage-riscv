@@ -14,64 +14,48 @@ val await_shutdown_request :
 end
 
 module Main : sig
-val wait_for_work : unit -> unit Lwt.t
+val wait_for_work_on_handle : int64 -> unit Lwt.t
 val run : unit Lwt.t -> unit
-val at_enter : (unit -> unit Lwt.t) -> unit
-val at_enter_iter : (unit -> unit) -> unit
-val at_exit_iter  : (unit -> unit) -> unit
+end
+
+module Memory : sig
+
+  (** Memory management operations. *)
+
+  (** Memory allocation statistics. Units are the system word size, as used by
+      the OCaml stdlib Gc module. *)
+  type stat = {
+    heap_words : int;  (** total number of words allocatable on the heap. *)
+    live_words : int;  (** number of live (i.e. allocated) words on the heap. *)
+    stack_words : int; (** number of words in use by the program stack.
+                           This includes any space reserved by a stack guard. *)
+    free_words : int;  (** number of free (i.e. allocatable) words on the heap. *)
+  }
+
+  val quick_stat: unit -> stat
+  (** [quick_stat ()]  returns memory allocation statistics. This call is
+      computationally cheap, but the returned values may not be completely
+      accurate. *)
 end
 
 module MM : sig
-module Heap_pages : sig
-  val total: unit -> int
-  val used: unit -> int
+  val malloc_metrics : tags:'a Metrics.Tags.t -> ('a, unit -> Metrics.Data.t) Metrics.src
+  [@@ocaml.deprecated "This function will be deprecated. Use {!Memory.quick_stat} instead."]
 end
-end
+
 module Time : sig
-
-type +'a io = 'a Lwt.t
-
-(** Timeout operations. *)
-
-module Monotonic : sig
-  (** Monotonic time is time since boot (dom0 or domU, depending on platform).
-   * Unlike Clock.time, it does not go backwards when the system clock is
-   * adjusted. *)
-
-  type time_kind = [`Time | `Interval]
-  type 'a t constraint 'a = [< time_kind]
-
-  val time : unit -> [`Time] t
-  (** Read the current monotonic time. *)
-
-  val ( + ) : 'a t -> [`Interval] t -> 'a t
-  val ( - ) : 'a t -> [`Interval] t -> 'a t
-  val interval : [`Time] t -> [`Time] t -> [`Interval] t
-
-  (** Conversions. Note: still seconds since boot. *)
-  val of_nanoseconds : int64 -> _ t
-end
-
-val restart_threads: (unit -> [`Time] Monotonic.t) -> unit
-(** [restart_threads time_fun] restarts threads that are sleeping and
-    whose wakeup time is before [time_fun ()]. *)
-
-val select_next : unit -> [`Time] Monotonic.t option
-(** [select_next ()] is [Some t] where [t] is the earliest time
-    when one sleeping thread will wake up, or [None] if there is no
-    sleeping threads. *)
 
 val sleep_ns : int64 -> unit Lwt.t
 (** [sleep_ns d] Block the current thread for [n] nanoseconds. *)
+end
 
-exception Timeout
-(** Exception raised by timeout operations *)
+module Solo5 : sig
 
-val with_timeout : int64 -> (unit -> 'a Lwt.t) -> 'a Lwt.t
-(** [with_timeout d f] is a short-hand for:
+type solo5_result =
+  | SOLO5_R_OK
+  | SOLO5_R_AGAIN
+  | SOLO5_R_EINVAL
+  | SOLO5_R_EUNSPEC
+(** A type mapping the C enum solo5_result_t to OCaml **)
 
-    {[
-    Lwt.pick [Lwt_unix.timeout d; f ()]
-    ]}
-*)
 end

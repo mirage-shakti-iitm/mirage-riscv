@@ -25,44 +25,35 @@
 
 open Lwt
 
-type +'a io = 'a Lwt.t
+external time : unit -> int64 = "caml_get_monotonic_time"
 
-module Monotonic = struct
-  type time_kind = [`Time | `Interval]
-  type 'a t = int64 constraint 'a = [< time_kind]
-
-  external time : unit -> int64 = "caml_get_monotonic_time"
-
-  let of_nanoseconds x = x
-
-  let ( + ) = ( Int64.add )
-  let ( - ) = ( Int64.sub )
-  let interval = ( Int64.sub )
-end
+type t = int64
 
 (* +-----------------------------------------------------------------+
    | Sleepers                                                        |
    +-----------------------------------------------------------------+ *)
 
 type sleep = {
-  time : [`Time] Monotonic.t;
+  time : t;
   mutable canceled : bool;
   thread : unit Lwt.u;
 }
 
 module SleepQueue =
   Binary_heap.Make (struct
-                     type t = sleep
-                     let compare { time = t1; _ } { time = t2; _ } =
-                       (* bheap library only operates on maximums, but we
-                          need the minimum, so invert the order *)
-                       let invert_comparison x = -x in
-                       invert_comparison (compare t1 t2)
-                   end)
+                      type t = sleep
+                      let compare { time = t1; _ } { time = t2; _ } =
+                        compare t1 t2
+                    end)
 
 (* Threads waiting for a timeout to expire: *)
-(* bheap datastructure needs to be created with initial strictly positive capacity *)
-let sleep_queue = SleepQueue.create 1
+let sleep_queue =
+  let dummy = {
+    time = time ();
+    canceled = false;
+    thread = Lwt.wait () |> snd; }
+  in
+  SleepQueue.create ~dummy 0
 
 (* Sleepers added since the last iteration of the main loop:
 
@@ -71,12 +62,28 @@ let sleep_queue = SleepQueue.create 1
 *)
 let new_sleeps = ref []
 
+let sleep_metrics =
+  let open Metrics in
+  let doc = "Sleep queue size" in
+  let data () =
+    let q_size = SleepQueue.length sleep_queue
+    and new_size = List.length !new_sleeps
+    in
+    Data.v
+      [ uint "sleep queue size" q_size
+      ; uint "new sleeper size" new_size
+      ; uint "total sleeper size" (q_size + new_size) ]
+  in
+  Src.v ~doc ~tags:Metrics.Tags.[] ~data "sleep"
+
+let m () = Metrics.add sleep_metrics (fun x -> x) (fun d -> d ())
+
 let sleep_ns d =
-  let converted_d = Int64.of_int (Int64.to_int (d) / 90) in
   let (res, w) = Lwt.task () in
-  let t = Monotonic.(time () + of_nanoseconds converted_d) in
+  let t = Int64.add (time ()) d in
   let sleeper = { time = t; canceled = false; thread = w } in
   new_sleeps := sleeper :: !new_sleeps;
+  m ();
   Lwt.on_cancel res (fun _ -> sleeper.canceled <- true);
   res
 
@@ -90,13 +97,15 @@ let in_the_past now t =
   t = 0L || t <= now ()
 
 let rec restart_threads now =
-  match SleepQueue.maximum sleep_queue with
+  match SleepQueue.minimum sleep_queue with
   | exception Binary_heap.Empty -> ()
   | { canceled = true; _ } ->
       SleepQueue.remove sleep_queue;
+      m ();
       restart_threads now
-  | { time = time; thread = thread; _ } when in_the_past now time ->
+  | { time; thread; _ } when in_the_past now time ->
       SleepQueue.remove sleep_queue;
+      m ();
       Lwt.wakeup thread ();
       restart_threads now
   | _ -> ()
@@ -105,24 +114,20 @@ let rec restart_threads now =
    | Event loop                                                      |
    +-----------------------------------------------------------------+ *)
 
-let min_timeout a b = match a, b with
-  | None, b -> b
-  | a, None -> a
-  | Some a, Some b -> Some(min a b)
-
 let rec get_next_timeout () =
-  match SleepQueue.maximum sleep_queue with
+  match SleepQueue.minimum sleep_queue with
   | exception Binary_heap.Empty -> None
   | { canceled = true; _ } ->
       SleepQueue.remove sleep_queue;
+      m ();
       get_next_timeout ()
-  | { time = time; _ } ->
+  | { time; _ } ->
       Some time
 
 let select_next () =
   (* Transfer all sleepers added since the last iteration to the main
      sleep queue: *)
-  List.iter
-      (fun e -> SleepQueue.add sleep_queue e) !new_sleeps;
+  List.iter (fun e -> SleepQueue.add sleep_queue e) !new_sleeps;
   new_sleeps := [];
+  m ();
   get_next_timeout ()
