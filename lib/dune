@@ -3,19 +3,3 @@
  (public_name mirage-riscv)
  (private_modules lifecycle main mM time)
  (libraries mirage-runtime bheap lwt cstruct metrics duration))
-
-(rule
- (deps (source_tree bindings))
- (target libmirage-riscv_bindings.a)
- (action
-  (no-infer
-   (progn
-    (chdir bindings (run %{make}))
-    (copy bindings/libmirage-riscv_bindings.a libmirage-riscv_bindings.a)))))
-
-(include_subdirs unqualified)
-
-(install
- (section lib)
- (files (bindings/mirage-riscv.pc as ../pkgconfig/mirage-riscv.pc)
-   libmirage-riscv_bindings.a))
