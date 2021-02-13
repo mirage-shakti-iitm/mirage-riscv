@@ -25,18 +25,21 @@
 CAMLprim value
 stub_mallinfo(value unit)
 {
-  CAMLparam1(unit);
-  CAMLlocal1(res);
-  struct mallinfo mi;
+  // CAMLparam1(unit);
+  // CAMLlocal1(res);
+  // struct mallinfo mi;
 
-  mi = mallinfo();
-  res = caml_alloc(7, 0);
-  Store_field (res, 0, Val_int(mi.arena));
-  Store_field (res, 1, Val_int(mi.ordblks));
-  Store_field (res, 2, Val_int(mi.hblkhd));
-  Store_field (res, 3, Val_int(mi.usmblks));
-  Store_field (res, 4, Val_int(mi.uordblks));
-  Store_field (res, 5, Val_int(mi.fordblks));
-  Store_field (res, 6, Val_int(mi.keepcost));
-  CAMLreturn(res);
+  // mi = mallinfo();
+  // res = caml_alloc(7, 0);
+  // Store_field (res, 0, Val_int(mi.arena));
+  // Store_field (res, 1, Val_int(mi.ordblks));
+  // Store_field (res, 2, Val_int(mi.hblkhd));
+  // Store_field (res, 3, Val_int(mi.usmblks));
+  // Store_field (res, 4, Val_int(mi.uordblks));
+  // Store_field (res, 5, Val_int(mi.fordblks));
+  // Store_field (res, 6, Val_int(mi.keepcost));
+  // CAMLreturn(res);
+    //return Val_long(minios_heap_pages_used);
+  printf("STUB: %s unimplemented, aborting\n", __func__);
+  abort();
 }
