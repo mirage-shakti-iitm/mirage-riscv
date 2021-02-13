@@ -49,7 +49,7 @@ val sleep_ns : int64 -> unit Lwt.t
 (** [sleep_ns d] Block the current thread for [n] nanoseconds. *)
 end
 
-module Solo5 : sig
+(* module Solo5 : sig
 
 type solo5_result =
   | SOLO5_R_OK
@@ -59,3 +59,4 @@ type solo5_result =
 (** A type mapping the C enum solo5_result_t to OCaml **)
 
 end
+ *)

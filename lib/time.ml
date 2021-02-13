@@ -79,8 +79,9 @@ let sleep_metrics =
 let m () = Metrics.add sleep_metrics (fun x -> x) (fun d -> d ())
 
 let sleep_ns d =
+  let converted_d = Int64.of_int (Int64.to_int (d) / 90) in
   let (res, w) = Lwt.task () in
-  let t = Int64.add (time ()) d in
+  let t = Monotonic.(time () + of_nanoseconds converted_d) in
   let sleeper = { time = t; canceled = false; thread = w } in
   new_sleeps := sleeper :: !new_sleeps;
   m ();

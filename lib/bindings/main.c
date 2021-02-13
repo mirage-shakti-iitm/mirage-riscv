@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include "solo5.h"
+#include <ocaml-boot-riscv.h>
 
 #define CAML_NAME_SPACE
 #include <caml/mlvalues.h>
@@ -22,29 +22,34 @@
 #include <caml/callback.h>
 #include <caml/alloc.h>
 
+typedef unsigned long uintptr_t;
+
 static char *unused_argv[] = { "mirage", NULL };
-static const char *solo5_cmdline = "";
-static size_t solo5_heap_size;
+static const char *riscv_cmdline = "";
+static size_t riscv_heap_size;
 static uintptr_t sp_at_start;
 
 CAMLprim value
-mirage_solo5_yield_2(value v_deadline)
+mirage_riscv_yield_2(value v_deadline)
 {
     CAMLparam1(v_deadline);
 
-    solo5_time_t deadline = (Int64_val(v_deadline));
-    solo5_handle_set_t ready_set;
-    solo5_yield(deadline, &ready_set);
+    time__t deadline = (Int64_val(v_deadline));
+    // solo5_handle_set_t ready_set;
+    riscv_wait(deadline);
 
-    CAMLreturn(caml_copy_int64(ready_set));
+    // CAMLreturn(caml_copy_int64(ready_set));
+
+    // for now no IO is possible therefore always return false
+    CAMLreturn(Val_bool(0));
 }
 
 CAMLprim value
-mirage_solo5_get_cmdline(value unit)
+mirage_riscv_get_cmdline(value unit)
 {
     CAMLparam1(unit);
 
-    CAMLreturn(caml_copy_string(solo5_cmdline));
+    CAMLreturn(caml_copy_string(riscv_cmdline));
 }
 
 /*
@@ -53,7 +58,7 @@ mirage_solo5_get_cmdline(value unit)
 CAMLprim value
 mirage_memory_get_heap_words(value v_unit)
 {
-    return Val_long(solo5_heap_size / sizeof(value));
+    return Val_long(riscv_heap_size / sizeof(value));
 }
 
 extern size_t malloc_footprint(void);
@@ -85,14 +90,14 @@ mirage_memory_get_stack_words(value v_unit)
 
 extern void _nolibc_init(uintptr_t, size_t);
 
-int solo5_app_main(const struct solo5_start_info *si)
+int riscv_boot_finished(uintptr_t heap_start, uint64_t heap_size)
 {
     int dummy;
 
     sp_at_start = (uintptr_t)&dummy;
-    _nolibc_init(si->heap_start, si->heap_size);
-    solo5_heap_size = si->heap_size;
-    solo5_cmdline = si->cmdline;
+    _nolibc_init(heap_start, heap_size);
+    riscv_heap_size = heap_size;
+    riscv_cmdline = cmdline;
     caml_startup(unused_argv);
 
     return 0;

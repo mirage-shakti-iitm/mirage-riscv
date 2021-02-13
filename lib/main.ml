@@ -21,9 +21,9 @@
  * 02111-1307, USA.
  *)
 
-external solo5_yield : Time.t -> int64 = "mirage_solo5_yield_2"
+external riscv_yield : Time.t -> int64 = "mirage_riscv_yield_2"
 
-(* A Map from Int64 (solo5_handle_t) to an Lwt_condition. *)
+(* A Map from Int64 (riscv_handle_t) to an Lwt_condition. *)
 module HandleMap = Map.Make(Int64)
 let work = ref HandleMap.empty
 
@@ -51,10 +51,11 @@ let run t =
         Mirage_runtime.run_enter_iter_hooks () ;
         let timeout =
           match Time.select_next () with
-          |None -> Int64.add (Time.time ()) (Duration.of_day 1)
+          (* |None -> Int64.add (Time.time ()) (Duration.of_day 1) *)
+          |None -> Time.Monotonic.(time () + of_nanoseconds 86_400_000_000_000L) (* one day = 24 * 60 * 60 s *)
           |Some tm -> tm
         in
-        let ready_set = solo5_yield timeout in
+        let ready_set = riscv_yield timeout in
         if not (Int64.equal 0L ready_set) then begin
           (* Some I/O is possible, wake up threads and continue. *)
           let is_in_set set x =
