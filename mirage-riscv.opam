@@ -16,6 +16,10 @@ tags: [
 build: [
   ["dune" "subst"] {pinned}
   ["dune" "build" "-x" "riscv" "-p" "mirage-riscv" "-j" jobs ]
+  [make "all"]
+]
+install: [
+  [make "install"]
 ]
 depends: [
   "dune" {>= "2.6.0"}
