@@ -51,8 +51,8 @@ let run t =
         Mirage_runtime.run_enter_iter_hooks () ;
         let timeout =
           match Time.select_next () with
-          (* |None -> Int64.add (Time.time ()) (Duration.of_day 1) *)
-          |None -> Time.Monotonic.(time () + of_nanoseconds 86_400_000_000_000L) (* one day = 24 * 60 * 60 s *)
+          |None -> Int64.add (Time.time ()) (Duration.of_day 1)
+          (* |None -> Time.(time () + of_nanoseconds 86_400_000_000_000L) (* one day = 24 * 60 * 60 s *) *)
           |Some tm -> tm
         in
         let ready_set = riscv_yield timeout in
