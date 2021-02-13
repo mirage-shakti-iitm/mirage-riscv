@@ -97,7 +97,7 @@ int riscv_boot_finished(uintptr_t heap_start, uint64_t heap_size)
     sp_at_start = (uintptr_t)&dummy;
     _nolibc_init(heap_start, heap_size);
     riscv_heap_size = heap_size;
-    riscv_cmdline = cmdline;
+    // riscv_cmdline = cmdline;
     caml_startup(unused_argv);
 
     return 0;
