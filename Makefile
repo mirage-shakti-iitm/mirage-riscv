@@ -14,6 +14,7 @@ $(BUILD_MIRAGE_RISCV_LIB)/libmirage-riscv_bindings.a: $(BUILD_MIRAGE_RISCV_LIB)/
 all: $(BUILD_MIRAGE_RISCV_LIB)/libmirage-riscv_bindings.a
 
 install: all
+	mkdir -p ${MIRAGE_RISCV_BINDINGS_PATH}/
 	cp ${BUILD_MIRAGE_RISCV_LIB}/libmirage-riscv_bindings.a ${MIRAGE_RISCV_BINDINGS_PATH}/
 
 uninstall:   
