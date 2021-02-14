@@ -16,7 +16,6 @@ tags: [
 build: [
   ["dune" "subst"] {pinned}
   ["dune" "build" "-x" "riscv" "-p" "mirage-riscv" "-j" jobs ]
-  
 ]
 
 depends: [
