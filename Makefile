@@ -10,12 +10,14 @@ $(BUILD_MIRAGE_RISCV_LIB)/Makefile:
 
 $(BUILD_MIRAGE_RISCV_LIB)/libmirage-riscv_bindings.a: $(BUILD_MIRAGE_RISCV_LIB)/Makefile
 	$(MAKE) -C $(BUILD_MIRAGE_RISCV_LIB) libmirage-riscv_bindings.a
+	mkdir -p ${MIRAGE_RISCV_BINDINGS_PATH}/
+	cp ${BUILD_MIRAGE_RISCV_LIB}/libmirage-riscv_bindings.a ${MIRAGE_RISCV_BINDINGS_PATH}/
 
 all: $(BUILD_MIRAGE_RISCV_LIB)/libmirage-riscv_bindings.a
 
 install: all
 	mkdir -p ${MIRAGE_RISCV_BINDINGS_PATH}/
-	cp ${BUILD_MIRAGE_RISCV_LIB}/libmirage-riscv_bindings.a ${MIRAGE_RISCV_BINDINGS_PATH}/
+# 	cp ${BUILD_MIRAGE_RISCV_LIB}/libmirage-riscv_bindings.a ${MIRAGE_RISCV_BINDINGS_PATH}/
 
 uninstall:   
 	rm -rf $(BUILD_MIRAGE_RISCV_LIB)
