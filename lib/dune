@@ -1,5 +1,5 @@
 (library
  (name oS)
  (public_name mirage-riscv)
- (private_modules lifecycle main mM time)
+ (modules lifecycle main mM time)
  (libraries mirage-runtime bheap lwt cstruct metrics duration))
