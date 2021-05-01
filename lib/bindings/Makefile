@@ -4,9 +4,9 @@ all: libmirage-riscv_bindings.a
 
 PKG_CONFIG_PATH := $(shell opam config var prefix)/riscv-sysroot/lib/pkgconfig
 
-CC=riscv64-unknown-elf-gcc
+CC=clang
 
-C_FLAGS=-mcmodel=medany -O2 -std=c99 -Wall -Werror
+C_FLAGS=-mcmodel=medany -O2 -std=c99 -Wall -Werror --gcc-toolchain=${RISCV} -march=rv64gc
 
 C_INCLUDES=-I${OPAM_SWITCH_PREFIX}/riscv-sysroot/include/ocaml-freestanding-riscv -I${OPAM_SWITCH_PREFIX}/riscv-sysroot/include/ocaml-boot-riscv -I${OPAM_SWITCH_PREFIX}/riscv-sysroot/lib/ocaml
 
