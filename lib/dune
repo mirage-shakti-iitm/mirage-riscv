@@ -3,7 +3,7 @@
  (public_name mirage-riscv)
  (private_modules lifecycle main mM time)
  (libraries mirage-runtime bheap lwt cstruct metrics duration)
- (ocamlopt_flags (-default-compartment-id 1 -function-sections)))
+ (ocamlopt_flags (-default-compartment-id 255 -function-sections)))
 
 (rule
  (deps
