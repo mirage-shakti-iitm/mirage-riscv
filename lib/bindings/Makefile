@@ -21,7 +21,7 @@ OBJS=alloc_pages_stubs.o atomic_stubs.o barrier_stubs.o checksum_stubs.o clock_s
 SRCS=alloc_pages_stubs.c atomic_stubs.c barrier_stubs.c checksum_stubs.c clock_stubs.c cstruct_stubs.c main.c mm_stubs.c riscv_console_stubs.c
 
 $(OBJS):%.o: %.c
-	$(CC) -g $(C_INCLUDES) $(CFLAGS) -o $@ -c $<
+	$(CC) $(C_INCLUDES) $(CFLAGS) -o $@ -c $<
 
 libmirage-riscv_bindings.a: $(OBJS)
 	riscv64-unknown-elf-ar rcs $@ $(OBJS)
