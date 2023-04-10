@@ -10,7 +10,7 @@ CC=clang
 
 CFLAGS=-mcmodel=medany -O2 -std=c99 -Wall -Wno-parentheses -Werror -Wno-void-pointer-to-int-cast # -nostdinc
 CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc -mabi=lp64d
-COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 255 -ffunction-sections -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/fides-cap-files/fides-voting-system-1/mirage-riscv/bindings
+COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 249 -ffunction-sections -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/fides-cap-files/fides-voting-system-3/mirage-riscv/bindings
 # COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-riscv/compartment_allocations/strategy_1/nolibc
 CFLAGS+=$(COMPARTMENT_FLAGS)
 
