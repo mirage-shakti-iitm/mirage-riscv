@@ -6,9 +6,9 @@ PKG_CONFIG_PATH := $(shell opam config var prefix)/riscv-sysroot/lib/pkgconfig
 
 CC=clang
 
-CFLAGS=-mcmodel=medany -O2 -std=c99 -Wall -Wno-parentheses -Werror -Wno-void-pointer-to-int-cast # -nostdinc
+CFLAGS=-mcmodel=medany -O2 -std=c99 -Wall -Wno-parentheses -Werror -Wno-void-pointer-to-int-cast -g # -nostdinc
 CFLAGS+=--gcc-toolchain=$(RISCV) -march=rv64gc -mabi=lp64d
-COMPARTMENT_FLAGS=-mllvm -all-checkcap -mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 34 -ffunction-sections #-mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/fides-cap-files/fides-voting-system-3/mirage-riscv/bindings
+COMPARTMENT_FLAGS=-mllvm -all-checkcap -mllvm -enable-compartment-pass -mllvm -default-compartment-id -mllvm 4 -ffunction-sections #-mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/fides-cap-files/fides-voting-system-3/mirage-riscv/bindings
 # COMPARTMENT_FLAGS=-mllvm -enable-compartment-pass -mllvm -cap-file-path -mllvm /home/sai/Shakti-TEE-Practical/mirage-shakti/ocaml-freestanding-riscv/compartment_allocations/strategy_1/nolibc
 CFLAGS+=$(COMPARTMENT_FLAGS)
 
